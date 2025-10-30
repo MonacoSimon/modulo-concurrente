@@ -1,0 +1,100 @@
+{Realice un programa en el que cuatro robots realizan las siguientes actividades:
+● El robot 1 debe limpiar de flores las primeras 15 esquinas de las calles 75 y 80. Al finalizar
+cada calle, debe depositar todas las flores en la última esquina.
+● El robot 2 debe limpiar de papeles las últimas 20 esquinas de las avenidas 75 y 80. Al
+finalizar cada avenida debe depositar todos los papeles en la primera esquina.
+● El robot 3 debe limpiar de flores las últimas 30 esquinas de las calles 10 y 15. Al finalizar
+cada calle, debe depositar todas las flores en la última esquina.
+● El robot 4 debe limpiar de papeles las primeras 10 esquinas de las avenidas 10 y 15. Al
+finalizar cada avenida debe depositar todos los papeles en la primera esquina.}
+
+programa ejemplo
+procesos
+  proceso juntarFlor(ES contFlor:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      contFlor:=contFlor+1
+  fin
+  proceso dejarPapel(E contFlor:numero)
+  comenzar
+    repetir contFlor
+      depositarFlor
+  fin
+  proceso recorrerEsquina (E esquina:numero)
+  variables
+    contFlor:numero
+  comenzar
+    contFlor:=0
+    repetir (esquina-1)
+      mientras (HayFlorEnLaEsquina)
+        tomarFlor
+        contFlor:=contFlor+1
+      mover
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      contFlor:=contFlor+1
+    repetir contFlor
+      depositarFlor
+  fin
+  proceso recorrerEsquina10(ES contFlor:numero)
+  variables
+    contFlor:numero
+  comenzar
+    contFlor:=0
+    repetir 9
+      mientras (HayFlorEnLaEsquina)
+        tomarFlor
+        contFlor:=contFlor+1
+      mover
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      contFlor:=contFlor+1
+  fin
+areas
+  area1: AreaP (1,75,15,80)
+  area2: AreaP (75,80,80,100)
+  area3: AreaP (70,10,100,15)
+  area4: AreaP (10,1,15,10)
+robots
+  robot robot1
+  variables
+    esquina:numero
+  comenzar
+    esquina:=15
+    derecha
+    recorrerEsquina(esquina)
+    Pos(1,80)
+    recorrerEsquina(esquina)
+    Pos(70,10)
+    esquina:=31
+    recorrerEsquina(esquina)
+    Pos(70,15)
+    recorrerEsquina(esquina)
+  fin
+  robot robot2
+  variables
+    esquina:numero
+  comenzar
+    esquina:=10
+    recorrerEsquina(esquina)
+    Pos(15,1)
+    recorrerEsquina(esquina)
+    Pos(75,80)
+    esquina:=21
+    recorrerEsquina(esquina)
+    Pos(80,80)
+    recorrerEsquina(esquina)
+    
+  fin
+variables
+  R_info: robot1
+  r2: robot2
+comenzar
+  AsignarArea(R_info, area1)
+  AsignarArea(R_info, area3)
+  AsignarArea(r2, area2)
+  AsignarArea(r2, area4)
+  Iniciar(R_info, 1,75)
+  Iniciar(r2,10,1)
+fin

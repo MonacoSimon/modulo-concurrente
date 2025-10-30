@@ -1,0 +1,151 @@
+programa ejemplo
+procesos
+  proceso juntarFlor(ES cantFlor:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantFlor:=cantFlor+1
+  fin
+  proceso max(E c1:numero; E c2:numero; E c3:numero; E c4:numero; ES var:numero)
+  variables
+    maximo:numero
+  comenzar
+    maximo:=0
+    si(c1> maximo)
+      maximo:=c1
+      var:=1
+    si(c2>maximo)
+      maximo:=c2
+      var:=2
+    si(c3>maximo)
+      maximo:=c3
+      var:=3
+    si(c4>maximo)
+      maximo:=c4
+      var:=4
+  fin
+areas
+  area: AreaPC(25,25,75,75)
+  area1: AreaP(1,1,1,1)
+  area2: AreaP(25,1,25,1)
+  area3: AreaP(30,1,30,1)
+  area4: AreaP(35,1,35,1)
+  area5: AreaP(40,1,40,1)
+robots
+  robot jefe
+  variables
+    ok:boolean
+    var,cant,cant1,cant2,cant3,cant4,maximo:numero
+  comenzar
+    cant:=0
+    cant1:=0
+    cant2:=0
+    cant3:=0
+    cant4:=0
+    repetir 10
+      Random(var,1,4)
+      si(var = 1)
+        EnviarMensaje(V,r1)
+        EnviarMensaje(1,r1)
+        RecibirMensaje(cant,r1)
+        cant1:=cant1+cant
+      sino
+        si(var = 2)
+          EnviarMensaje(V,r2)
+          EnviarMensaje(2,r2)
+          RecibirMensaje(cant,r2)
+          cant2:=cant2+cant
+        sino
+          si(var = 3)
+            EnviarMensaje(V,r3)
+            EnviarMensaje(3,r3)
+            RecibirMensaje(cant,r3)
+            cant3:=cant3+cant
+          sino
+            si(var=4)
+              EnviarMensaje(V,r4)
+              EnviarMensaje(4,r4)
+              RecibirMensaje(cant,r4)
+              cant4:=cant4+cant
+      cant:=0
+    EnviarMensaje(F,r1)
+    EnviarMensaje(F,r2)
+    EnviarMensaje(F,r3)
+    EnviarMensaje(F,r4)
+    max(cant1,cant2,cant3,cant4,var)
+    si(var = 1)
+      EnviarMensaje(V,r1)
+      EnviarMensaje(F,r2)
+      EnviarMensaje(F,r3)
+      EnviarMensaje(F,r4)
+    sino
+      si(var=2)
+        EnviarMensaje(F,r1)
+        EnviarMensaje(V,r2)
+        EnviarMensaje(F,r3)
+        EnviarMensaje(F,r4)
+      sino
+        si(var=3)
+          EnviarMensaje(F,r1)
+          EnviarMensaje(F,r2)
+          EnviarMensaje(V,r3)
+          EnviarMensaje(F,r4)
+        sino
+          si(var=4)
+            EnviarMensaje(F,r1)
+            EnviarMensaje(F,r2)
+            EnviarMensaje(F,r3)
+            EnviarMensaje(V,r4)
+  fin
+  robot robot1
+  variables
+    ok,gane:boolean
+    ca,av,quien,cant:numero
+  comenzar
+    RecibirMensaje(ok,rj)
+    mientras(ok)
+      cant:=0
+      RecibirMensaje(quien,rj)
+      Random(ca,25,75)
+      Random(av,25,75)
+      Pos(av,ca)
+      juntarFlor(cant)
+      si(quien = 1)
+        Pos(25,1)
+      sino
+        si(quien=2)
+          Pos(30,1)
+        sino
+          si(quien=3)
+            Pos(35,1)
+          sino
+            si(quien=4)
+              Pos(40,1)
+      EnviarMensaje(cant,rj)
+      RecibirMensaje(ok,rj)
+    RecibirMensaje(gane,rj)
+    si(gane)
+      Pos(50,50)
+  fin
+variables
+  rj: jefe
+  r1: robot1
+  r2: robot1
+  r3: robot1
+  r4: robot1
+comenzar
+  AsignarArea(rj, area1)
+  AsignarArea(r1,area)
+  AsignarArea(r2,area)
+  AsignarArea(r3,area)
+  AsignarArea(r4,area)
+  AsignarArea(r1,area2)
+  AsignarArea(r2,area3)
+  AsignarArea(r3,area4)
+  AsignarArea(r4,area5)
+  Iniciar(rj, 1,1)
+  Iniciar(r1,25,1)
+  Iniciar(r2,30,1)
+  Iniciar(r3,35,1)
+  Iniciar(r4,40,1)
+fin

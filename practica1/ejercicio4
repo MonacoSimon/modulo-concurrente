@@ -1,0 +1,73 @@
+{Realice un programa en el que dos robots se encargan de limpiar las ciudad. La ciudad se dividió
+en 4 áreas: las impares (1 y 3) deben limpiarse de flores; y las pares (2 y 4) deben limpiarse de
+papeles. Un robot debe encargarse de las áreas impares y otro robot de las pares. Modularice el
+recorrido de cada área
+- Área 1: desde la avenida 1 hasta la avenida 25
+- Área 2: desde la avenida 26 hasta la avenida 50
+- Área 3: desde la avenida 51 hasta la avenida 75
+- Área 4: desde la avenida 76 hasta la avenida 100}
+programa ejemplo
+procesos
+  proceso juntarFlor
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+  fin
+  proceso juntarPapel
+  comenzar
+    mientras(HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  proceso recorrerAreaPar
+  comenzar
+    repetir 24
+      repetir 99
+        juntarPapel
+        mover
+      juntarPapel
+      Pos(PosAv+1, 1)
+    repetir 99
+        juntarPapel
+        mover
+  fin
+  proceso recorrerAreaImpar
+  comenzar
+    repetir 24
+      repetir 99
+        juntarFlor
+        mover
+      juntarFlor
+      Pos(PosAv+1, 1)
+    repetir 99
+        juntarFlor
+        mover
+  fin
+areas
+  area1: AreaP (1,1,25,100)
+  area2: AreaP (26,1,50,100)
+  area3: AreaP (51,1,75,100)
+  area4: AreaP (76,1,100,100)
+robots
+  robot robot1
+  comenzar
+    recorrerAreaImpar
+    Pos(51,1)
+    recorrerAreaImpar
+  fin
+  robot robot2
+  comenzar
+    recorrerAreaPar
+    Pos(76,1)
+    recorrerAreaPar
+  fin
+variables
+  R_info: robot1
+  robot1: robot2
+comenzar
+  AsignarArea(R_info, area1)
+  AsignarArea(R_info, area3)
+  AsignarArea(robot1, area2)
+  AsignarArea(robot1, area4)
+  Iniciar(R_info, 1,1)
+  Iniciar(robot1, 26,1)
+fin
